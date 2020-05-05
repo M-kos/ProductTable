@@ -28,7 +28,9 @@ export default {
   data() {
     return {
       selectAll: false,
-      sortByIncrease: true
+      sortByIncrease: true,
+      checkedItems: [],
+      deleteItemId: undefined
     }
   },
 

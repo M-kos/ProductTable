@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { RingLoader } from '@saeris/vue-spinners'
+import { RingLoader, PulseLoader } from '@saeris/vue-spinners'
 
 import Checkbox from '../Checkbox'
 
@@ -19,6 +19,11 @@ function renderCheckbox(h, checked = false, head = true) {
               checked: event => {
                 if (head) {
                   this.selectAll = !this.selectAll
+                  if (this.selectAll) {
+                    this.checkedItems.push(...this.sortedItems.map(item => item.id))
+                  } else {
+                    this.checkedItems.length = 0
+                  }
                 }
                 this.$emit('checked', event)
               }
@@ -52,6 +57,58 @@ function renderArrow(h, show = false) {
       ]
     )
   }
+}
+
+function renderBinOrPreloader(h, item) {
+  if (this.loading && this.deleteItemId === item.id) {
+    return h(
+      PulseLoader,
+      {
+        props: {
+          size: 5
+        }
+      }
+    )
+  } else {
+    return [
+      h(
+        'img',
+        {
+          attrs: {
+            src: './bin.svg'
+          }
+        }
+      ),
+      h(
+        'span',
+        {},
+        'delete'
+      )
+    ]
+  }
+}
+
+function renderDeleteCell(h, item) {
+  return h(
+    'td',
+    {
+      class: 'table__body-bin',
+      on: {
+        click: event => {
+          event.stopPropagation()
+
+          if (this.checkedItems.includes(item.id)) {
+            this.checkedItems.splice(this.checkedItems.indexOf(item.id), 1)
+          }
+
+          this.deleteItemId = item.id
+
+          this.$emit('delete', item.id)
+        }
+      }
+    },
+    [ renderBinOrPreloader.call(this, h, item) ]
+  )
 }
 
 function renderTableHead(h) {
@@ -115,7 +172,7 @@ function renderPreloaderOrEmpty(h) {
 }
 
 function renderTableBody(h) {
-  if (Array.isArray(this.sortedItems) && this.sortedItems.length > 0 && Array.isArray(this.columnTypes) && !this.loading) {
+  if (Array.isArray(this.sortedItems) && this.sortedItems.length > 0 && Array.isArray(this.columnTypes)) {
     return h(
       'tbody',
       {
@@ -128,15 +185,17 @@ function renderTableBody(h) {
             class: 'table__body-row',
             on: {
               click: () => {
-                // eslint-disable-next-line no-console
-                console.log('click');
-
+                if (this.checkedItems.includes(item.id)) {
+                  this.checkedItems.splice(this.checkedItems.indexOf(item.id), 1)
+                } else {
+                  this.checkedItems.push(item.id)
+                }
               }
             },
             key: item.id || `${index}-${this._uid}`
           },
           [
-            renderCheckbox.call(this, h, this.selectAll, false),
+            renderCheckbox.call(this, h, this.selectAll || this.checkedItems.includes(item.id), false),
 
             ...this.columnTypes.map(columnType => {
               return h(
@@ -147,7 +206,9 @@ function renderTableBody(h) {
                 },
                 item[columnType]
               )
-            })
+            }),
+
+            renderDeleteCell.call(this, h, item)
           ]
         )
       })

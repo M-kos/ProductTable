@@ -97,7 +97,7 @@ function renderDeleteCell(h, item) {
         click: event => {
           event.stopPropagation()
 
-          if (this.checkedItems.includes(item.id)) {
+          if (this.checkedItems.length > 0 && this.checkedItems.includes(item.id)) {
             this.checkedItems.splice(this.checkedItems.indexOf(item.id), 1)
           }
 
@@ -185,6 +185,10 @@ function renderTableBody(h) {
             class: 'table__body-row',
             on: {
               click: () => {
+                if (!this.selectable) {
+                  return
+                }
+
                 if (this.checkedItems.includes(item.id)) {
                   this.checkedItems.splice(this.checkedItems.indexOf(item.id), 1)
                 } else {

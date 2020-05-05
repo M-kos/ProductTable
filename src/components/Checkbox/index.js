@@ -12,7 +12,13 @@ export default {
 
   data() {
     return {
-      checked: this.check
+      checked: false
+    }
+  },
+
+  watch: {
+    check(value) {
+      this.checked = value
     }
   },
 

@@ -20,6 +20,12 @@ export default {
     }
   },
 
+  data() {
+    return {
+      selectAll: false
+    }
+  },
+
   computed: {
     columnTypes() {
       if (Array.isArray(this.headers) && this.headers.length > 0) {

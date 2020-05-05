@@ -1,11 +1,28 @@
 import Checkbox from '../Checkbox'
 
-function renderCheckBox(h) {
+function renderCheckbox(h, checked = false, head = true) {
   if (this.selectable) {
     return h(
       'td',
       {},
-      [ h(Checkbox) ]
+      [
+        h(
+          Checkbox,
+          {
+            props: {
+              check: checked
+            },
+            on: {
+              checked: event => {
+                if (head) {
+                  this.selectAll = !this.selectAll
+                }
+                this.$emit('checked', event)
+              }
+            }
+          }
+        )
+      ]
     )
   }
 }
@@ -24,7 +41,7 @@ function renderTableHead(h) {
             class: 'table__head-row'
           },
           [
-            renderCheckBox.call(this, h),
+            renderCheckbox.call(this, h),
 
             ...this.headers.map((header, index) => {
               return h(
@@ -58,10 +75,17 @@ function renderTableBody(h) {
           'tr',
           {
             class: 'table__body-row',
+            on: {
+              click: () => {
+                // eslint-disable-next-line no-console
+                console.log('click');
+
+              }
+            },
             key: item.id || `${index}-${this._uid}`
           },
           [
-            renderCheckBox.call(this, h),
+            renderCheckbox.call(this, h, this.selectAll, false),
 
             ...this.columnTypes.map(columnType => {
               return h(

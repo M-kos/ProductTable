@@ -71,7 +71,8 @@ export default function(h) {
         {
           props: {
             headers: COLUMN_TITLES,
-            items: products
+            items: products,
+            selectable: true
           }
         }
       )

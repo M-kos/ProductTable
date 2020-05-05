@@ -7,7 +7,13 @@ function renderCheckbox(h, checked = false, head = true) {
   if (this.selectable) {
     return h(
       'td',
-      {},
+      {
+        style: {
+          width: 'auto',
+          'padding-left': '32px',
+          'padding-right': '24px'
+        }
+      },
       [
         h(
           Checkbox,
@@ -81,7 +87,11 @@ function renderBinOrPreloader(h, item) {
       ),
       h(
         'span',
-        {},
+        {
+          style: {
+            'margin-left': '4px'
+          }
+        },
         'delete'
       )
     ]
@@ -132,8 +142,8 @@ function renderTableHead(h) {
                 'th',
                 {
                   class: {
-                    'table__head-cell': true,
-                    'table__head-cell--active': index === 0
+                    'table__head-row-cell': true,
+                    'table__head-row-cell--active': index === 0
                   },
                   on: {
                     click: () => {
@@ -179,6 +189,8 @@ function renderTableBody(h) {
         class: 'table__body'
       },
       this.sortedItems.map((item, index) => {
+        const includeId = this.checkedItems.includes(item.id)
+
         return h(
           'tr',
           {
@@ -189,7 +201,7 @@ function renderTableBody(h) {
                   return
                 }
 
-                if (this.checkedItems.includes(item.id)) {
+                if (includeId) {
                   this.checkedItems.splice(this.checkedItems.indexOf(item.id), 1)
                 } else {
                   this.checkedItems.push(item.id)
@@ -199,13 +211,17 @@ function renderTableBody(h) {
             key: item.id || `${index}-${this._uid}`
           },
           [
-            renderCheckbox.call(this, h, this.selectAll || this.checkedItems.includes(item.id), false),
+            renderCheckbox.call(this, h, this.selectAll || includeId, false),
 
-            ...this.columnTypes.map(columnType => {
+            ...this.columnTypes.map((columnType, index) => {
               return h(
                 'td',
                 {
-                  class: 'table__body-cell',
+                  class: {
+                    'table__body-row-cell': true,
+                    'table__body-row-cell--active': index === 0,
+                    'table__body-row-cell--checked': includeId
+                  },
                   key: `${columnType}-${item.id || index}-${this._uid}`
                 },
                 item[columnType]

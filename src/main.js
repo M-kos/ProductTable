@@ -6,6 +6,8 @@ import './assets/main.scss'
 
 Vue.config.productionTip = false;
 
+store.dispatch('getProducts')
+
 new Vue({
   store,
   render: (h) => h(App)

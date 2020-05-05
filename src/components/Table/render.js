@@ -1,7 +1,11 @@
+import Checkbox from '../Checkbox'
+
 function renderCheckBox(h) {
   if (this.selectable) {
     return h(
-      'td'
+      'td',
+      {},
+      [ h(Checkbox) ]
     )
   }
 }

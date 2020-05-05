@@ -1,0 +1,26 @@
+.checkbox {
+  background-color: transparent;
+  width: 14px;
+  height: 14px;
+  border: 1px solid $border-disabled;
+  border-radius: 2px;
+  transition-property: border-color, background-color;
+  transition-duration: 80ms;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &--checked {
+    background-color: $primary;
+    border-color: $primary;
+  }
+
+  &__checkmark {
+    display: none;
+
+    &--checked {
+      display: flex;
+    }
+  }
+}

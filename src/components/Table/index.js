@@ -17,12 +17,18 @@ export default {
     selectable: {
       type: Boolean,
       default: false
+    },
+
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
 
   data() {
     return {
-      selectAll: false
+      selectAll: false,
+      sortByIncrease: true
     }
   },
 
@@ -33,7 +39,26 @@ export default {
           return header.value
         })
       }
+    },
+
+    sortedItems() {
+      if (this.items) {
+        const activeColumn = this.columnTypes[0]
+
+        return this.items.sort((a, b) => {
+          let result = a[activeColumn] > b[activeColumn] ? 1 : -1
+
+          if (!this.sortByIncrease) {
+            result *= -1
+          }
+
+          return result
+        })
+      }
     }
+  },
+
+  methods: {
   },
 
   render

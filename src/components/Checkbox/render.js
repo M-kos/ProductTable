@@ -7,7 +7,10 @@ export default function(h) {
         'checkbox--checked': this.checked
       },
       on: {
-        click: this.toggle
+        click: () => {
+          this.toggle()
+          this.$emit('checked', this.checked)
+        }
       }
     },
     [

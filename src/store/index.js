@@ -46,21 +46,17 @@ export default new Vuex.Store({
     async deleteProducts({ commit, state }, products) {
 
       try {
-        let removeProducts = []
+        let removeProducts = products
 
         commit('setIsLoading', true)
 
-        if (typeof products !== 'object' || !Array.isArray(products)) {
-          throw new Error({
-            error: 'Wrong type'
-          })
+        if (typeof removeProducts === 'number') {
+          removeProducts = [ removeProducts ]
         }
 
-        if (typeof products === 'object') {
-          removeProducts.push(products)
+        if (typeof removeProducts !== 'object') {
+          throw new Error('Wrong type')
         }
-
-        removeProducts = removeProducts.map(product => product.id)
 
         const result = await deleteProducts()
 

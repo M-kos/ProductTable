@@ -60,8 +60,5 @@ export default {
     }
   },
 
-  methods: {
-  },
-
   render
 };

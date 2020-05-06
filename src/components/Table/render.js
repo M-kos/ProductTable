@@ -44,7 +44,7 @@ function renderCheckbox(h, checked = false, head = true) {
 function renderArrow(h, show = false) {
   if (show) {
     return h(
-      'div',
+      'span',
       {
         class: {
           'table__head-arrow': true,

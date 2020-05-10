@@ -31,7 +31,7 @@ export default function(h) {
             {},
             'Sorting by:'
           ),
-          ...COLUMN_TITLES.map(column => {
+          ...this.columns.map(column => {
             return h(
               Button,
               {
@@ -80,12 +80,17 @@ export default function(h) {
             {
               props: {
                 value: this.defaultSelectedColumns,
-                selectedString: 'Hello',
+                selectedString: this.selectedString,
                 multiple: true,
                 items: COLUMN_TITLES.map(column => ({
                   value: column.value,
                   title: column.title
                 }))
+              },
+              on: {
+                input: event => {
+                  this.selectedColumns = event
+                }
               }
             }
           )
@@ -96,7 +101,7 @@ export default function(h) {
         Table,
         {
           props: {
-            columns: COLUMN_TITLES,
+            columns: this.columns,
             items: this.products,
             selectable: true,
             loading: this.isLoading,

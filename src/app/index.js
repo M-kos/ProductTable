@@ -14,7 +14,8 @@ export default {
       activeColumn: defaultActiveColumn,
       defaultAmountElement: AMOUNT_ELEMENTS[0].value,
 
-      checkedItems: []
+      checkedItems: [],
+      selectedColumns: []
     }
   },
 
@@ -23,7 +24,19 @@ export default {
       return COLUMN_TITLES.map(column => column.value)
     },
 
+    selectedString() {
+      return `${this.selectedColumns.length} columns selected`
+    },
+
+    columns() {
+      return COLUMN_TITLES.filter(column => this.selectedColumns.includes(column.value))
+    },
+
     ...mapGetters([ 'products', 'error', 'isLoading', 'deleteMessage' ])
+  },
+
+  mounted() {
+    this.selectedColumns = this.defaultSelectedColumns
   },
 
   methods: {

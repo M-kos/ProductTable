@@ -2,6 +2,7 @@ import { COLUMN_TITLES } from '../utils'
 
 import Title from '../components/Title';
 import Table from '../components/Table';
+import Button from '../components/Button';
 
 export default function(h) {
   return h(
@@ -18,14 +19,45 @@ export default function(h) {
           value: 'Table UI'
         }
       }),
+
+      h(
+        'div',
+        {},
+        [
+          h(
+            'span',
+            {},
+            'Sorting by:'
+          ),
+          ...COLUMN_TITLES.map(column => {
+            return h(
+              Button,
+              {
+                props: {
+                  outline: false,
+                  active: column.value === this.activeColumn
+                },
+                on: {
+                  click: () => {
+                    this.activeColumn = column.value
+                  }
+                }
+              },
+              column.title
+            )
+          })
+        ]
+      ),
+
       h(
         Table,
         {
           props: {
-            headers: COLUMN_TITLES,
+            columns: COLUMN_TITLES,
             items: this.products,
             selectable: true,
-            loading: this.isLoading
+            loading: this.isLoading,
+            activeColumn: this.activeColumn
           },
           on: {
             delete: event => {

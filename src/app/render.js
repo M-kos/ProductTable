@@ -5,6 +5,7 @@ import Title from '../components/Title';
 import Table from '../components/Table';
 import Button from '../components/Button';
 import Select from '../components/Select';
+import Pagination from '../components/Pagination';
 
 export default function(h) {
   return h(
@@ -70,11 +71,17 @@ export default function(h) {
             Select,
             {
               props: {
-                value: this.defaultAmountElement,
+                value: this.amountElement,
                 items: AMOUNT_ELEMENTS
+              },
+              on: {
+                input: event => {
+                  this.amountElement = event[0]
+                }
               }
             }
           ),
+
           h(
             Select,
             {
@@ -93,6 +100,22 @@ export default function(h) {
                 }
               }
             }
+          ),
+
+          h(
+            Pagination,
+            {
+              props: {
+                perPage: this.amountElement,
+                allItems: this.products ? this.products.length : 0
+              },
+              on: {
+                toggle: event => {
+                  this.startIndex = event.start - 1
+                  this.endIndex = event.end
+                }
+              }
+            }
           )
         ]
       ),
@@ -102,7 +125,7 @@ export default function(h) {
         {
           props: {
             columns: this.columns,
-            items: this.products,
+            items: this.computedProducts,
             selectable: true,
             loading: this.isLoading,
             activeColumn: this.activeColumn

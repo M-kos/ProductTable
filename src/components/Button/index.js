@@ -8,7 +8,11 @@ export default {
   props: {
     outline: Boolean,
     loading: Boolean,
-    disabled: Boolean
+    disabled: Boolean,
+    active: {
+      type: Boolean,
+      default: true
+    }
   },
 
   render

@@ -27,7 +27,8 @@ export default function(h, ctx) {
         button: true,
         'button--outline': ctx.props.outline,
         'button--disabled': ctx.props.disabled,
-        'button--loading': ctx.props.loading
+        'button--loading': ctx.props.loading,
+        'button--active': ctx.props.active
       },
       style: ctx.data.style,
       on: ctx.data.on,

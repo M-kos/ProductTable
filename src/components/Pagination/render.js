@@ -18,7 +18,7 @@ export default function(h) {
           on: {
             click: () => {
               this.toggle('left')
-              this.$emmit('toggle', {
+              this.$emit('toggle', {
                 start: this.start,
                 end: this.end
               })
@@ -67,7 +67,7 @@ export default function(h) {
           on: {
             click: () => {
               this.toggle('right')
-              this.$emmit('toggle', {
+              this.$emit('toggle', {
                 start: this.start,
                 end: this.end
               })

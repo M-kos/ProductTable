@@ -73,7 +73,7 @@ export default {
   },
 
   methods: {
-    toggle(item, isIncludeItem) {
+    toggle(item) {
       if (item.value === 'all') {
         this.selectAll = !this.selectAll
         this.selectedItems.length = 0
@@ -87,11 +87,21 @@ export default {
         if (this.selectAll) {
           this.selectAll = false
         }
-        if (isIncludeItem) {
+
+        this.addValue(item)
+      }
+    },
+
+    addValue(item) {
+      if (this.multiple) {
+        if (this.selectedItems.includes(item.value)) {
           this.selectedItems.splice(this.selectedItems.indexOf(item.value), 1)
         } else {
           this.selectedItems.push(item.value)
         }
+      } else {
+        this.selectedItems.length = 0
+        this.selectedItems.push(item.value)
       }
     }
   },

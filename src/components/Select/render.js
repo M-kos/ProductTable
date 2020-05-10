@@ -49,8 +49,6 @@ function renderSelectedItems(h) {
 
 function renderCheckbox(h, item) {
   if (this.multiple) {
-    const isIncludeItem = this.selectedItems.includes(item.value)
-
     return h(
       'div',
       {
@@ -61,13 +59,7 @@ function renderCheckbox(h, item) {
           Checkbox,
           {
             props: {
-              check: isIncludeItem || this.selectAll
-            },
-            on: {
-              checked: () => {
-                this.toggle(item, isIncludeItem)
-                this.$emit('input', this.selectedItems)
-              }
+              check: this.selectedItems.includes(item.value) || this.selectAll
             }
           }
         )
@@ -80,7 +72,13 @@ function renderListItem(h, item) {
   return h(
     'div',
     {
-      class: 'select__select-list-item'
+      class: 'select__select-list-item',
+      on: {
+        click: () => {
+          this.toggle(item)
+          this.$emit('input', this.selectedItems)
+        }
+      }
     },
     [
       renderCheckbox.call(this, h, item),

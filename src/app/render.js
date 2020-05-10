@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { COLUMN_TITLES } from '../utils'
 
 import Title from '../components/Title';
@@ -45,7 +46,22 @@ export default function(h) {
               },
               column.title
             )
-          })
+          }),
+
+          h(
+            Button,
+            {
+              props: {
+                active: true
+              },
+              on: {
+                click: () => {
+                  this.deleteProducts(this.checkedItems)
+                }
+              }
+            },
+            'Delete'
+          )
         ]
       ),
 
@@ -62,6 +78,9 @@ export default function(h) {
           on: {
             delete: event => {
               this.deleteProducts(event)
+            },
+            checked: event => {
+              this.checkedItems = event
             }
           }
         }

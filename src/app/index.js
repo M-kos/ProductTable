@@ -7,12 +7,11 @@ const defaultActiveColumn = 'product'
 export default {
   name: 'App',
 
-  components: {
-  },
-
   data() {
     return {
-      activeColumn: defaultActiveColumn
+      activeColumn: defaultActiveColumn,
+
+      checkedItems: []
     }
   },
 

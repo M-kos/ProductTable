@@ -35,6 +35,7 @@ export default new Vuex.Store({
         const result = await getProducts()
 
         if (result) {
+          commit('setError')
           commit('setProducts', result)
         }
       } catch (error) {
@@ -62,6 +63,7 @@ export default new Vuex.Store({
 
         if (result) {
           commit('setDeleteMessage', result)
+          commit('setError')
           commit('setProducts', state.products.filter(product => !removeProducts.includes(product.id) ))
         }
       } catch (error) {

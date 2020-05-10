@@ -22,16 +22,17 @@ function renderCheckbox(h, checked = false, head = true) {
               check: checked
             },
             on: {
-              checked: event => {
+              checked: () => {
                 if (head) {
                   this.selectAll = !this.selectAll
+                  this.checkedItems.length = 0
+
                   if (this.selectAll) {
                     this.checkedItems.push(...this.sortedItems.map(item => item.id))
-                  } else {
-                    this.checkedItems.length = 0
                   }
+
+                  this.$emit('checked', this.checkedItems)
                 }
-                this.$emit('checked', event)
               }
             }
           }
@@ -215,6 +216,8 @@ function renderTableBody(h) {
                 } else {
                   this.checkedItems.push(item.id)
                 }
+
+                this.$emit('checked', this.checkedItems)
               }
             },
             key: item.id || `${index}-${this._uid}`

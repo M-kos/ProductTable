@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import render from './render';
 
 export default {
@@ -12,7 +13,7 @@ export default {
 
   data() {
     return {
-      checked: false
+      checked: undefined
     }
   },
 
@@ -20,6 +21,10 @@ export default {
     check(value) {
       this.checked = value
     }
+  },
+
+  mounted() {
+    this.checked = this.check
   },
 
   methods: {

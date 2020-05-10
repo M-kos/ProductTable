@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
-import { COLUMN_TITLES } from '../utils'
+import { COLUMN_TITLES, AMOUNT_ELEMENTS } from '../utils'
 
 import Title from '../components/Title';
 import Table from '../components/Table';
 import Button from '../components/Button';
+import Select from '../components/Select';
 
 export default function(h) {
   return h(
@@ -54,7 +55,7 @@ export default function(h) {
               props: {
                 active: true,
                 disabled: !this.checkedItems.length,
-                loading: this.checkedItems.length && this.isLoading
+                loading: !!this.checkedItems.length && this.isLoading
               },
               on: {
                 click: () => {
@@ -63,6 +64,30 @@ export default function(h) {
               }
             },
             'Delete'
+          ),
+
+          h(
+            Select,
+            {
+              props: {
+                value: this.defaultAmountElement,
+                items: AMOUNT_ELEMENTS
+              }
+            }
+          ),
+          h(
+            Select,
+            {
+              props: {
+                value: this.defaultSelectedColumns,
+                selectedString: 'Hello',
+                multiple: true,
+                items: COLUMN_TITLES.map(column => ({
+                  value: column.value,
+                  title: column.title
+                }))
+              }
+            }
           )
         ]
       ),

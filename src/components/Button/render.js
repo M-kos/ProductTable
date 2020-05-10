@@ -1,6 +1,6 @@
 import { PulseLoader } from '@saeris/vue-spinners'
 
-function renderPreLoader(h, ctx) {
+function renderPreLoaderOrContent(h, ctx) {
   if (ctx.props.loading) {
     return h(
       PulseLoader,
@@ -9,6 +9,14 @@ function renderPreLoader(h, ctx) {
           size: 5
         }
       }
+    )
+  } else {
+    return h(
+      'div',
+      {
+        class: 'button__content'
+      },
+      [ ctx.children ]
     )
   }
 }
@@ -34,16 +42,6 @@ export default function(h, ctx) {
       on: ctx.data.on,
       key: ctx.data.key
     },
-    [
-      h(
-        'div',
-        {
-          class: 'button__content'
-        },
-        [ ctx.children ]
-      ),
-
-      renderPreLoader.call(this, h, ctx)
-    ]
+    [ renderPreLoaderOrContent.call(this, h, ctx) ]
   )
 }

@@ -52,7 +52,9 @@ export default function(h) {
             Button,
             {
               props: {
-                active: true
+                active: true,
+                disabled: !this.checkedItems.length,
+                loading: this.checkedItems.length && this.isLoading
               },
               on: {
                 click: () => {

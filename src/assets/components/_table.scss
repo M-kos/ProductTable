@@ -15,10 +15,13 @@
         text-align: left;
         font-weight: 600;
         color: $font;
+        width: 12.08vw;
+        padding-left: 5px;
 
         &--active {
           cursor: pointer;
           color: $primary;
+          width: 14.06vw;
         }
       }
     }

@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       opened: false,
-      selectAll: false,
+      selectAll: true,
 
       selectedItems: []
     }
@@ -38,7 +38,7 @@ export default {
     },
 
     computedSelectedItems() {
-      if (this.selectedItems.length) {
+      if (this.selectedItems.length || this.selectedString) {
         if (this.multiple && this.selectedString) {
           return [ this.selectedString ]
         }
@@ -69,6 +69,30 @@ export default {
       }
 
       this.selectedItems = [ ...value ]
+    }
+  },
+
+  methods: {
+    toggle(item, isIncludeItem) {
+      if (item.value === 'all') {
+        this.selectAll = !this.selectAll
+        this.selectedItems.length = 0
+
+        if (this.selectAll) {
+          this.selectedItems.push(...this.computedListItems
+            .map(item => item.value)
+            .filter(item => item !== 'all'))
+        }
+      } else {
+        if (this.selectAll) {
+          this.selectAll = false
+        }
+        if (isIncludeItem) {
+          this.selectedItems.splice(this.selectedItems.indexOf(item.value), 1)
+        } else {
+          this.selectedItems.push(item.value)
+        }
+      }
     }
   },
 

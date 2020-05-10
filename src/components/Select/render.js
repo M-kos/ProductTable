@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Checkbox from '../Checkbox'
 
 function renderArrow(h) {
@@ -48,6 +49,8 @@ function renderSelectedItems(h) {
 
 function renderCheckbox(h, item) {
   if (this.multiple) {
+    const isIncludeItem = this.selectedItems.includes(item.value)
+
     return h(
       'div',
       {
@@ -58,21 +61,12 @@ function renderCheckbox(h, item) {
           Checkbox,
           {
             props: {
-              check: this.selectedItems.includes(item.value) || this.selectAll
+              check: isIncludeItem || this.selectAll
             },
             on: {
               checked: () => {
-                if (item.value === 'all') {
-                  this.selectAll = !this.selectAll
-                  this.selectedItems.length = 0
-
-                  if (this.selectAll) {
-                    this.selectedItems.push(...this.computedValues)
-                  }
-                } else {
-                  this.selectedItems.push(item.value)
-                }
-                this.$emit('checked', this.selectedItems)
+                this.toggle(item, isIncludeItem)
+                this.$emit('input', this.selectedItems)
               }
             }
           }

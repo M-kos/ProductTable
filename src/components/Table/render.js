@@ -122,7 +122,7 @@ function renderDeleteCell(h, item) {
 }
 
 function renderTableHead(h) {
-  if (Array.isArray(this.headers) && this.headers.length > 0) {
+  if (Array.isArray(this.columns) && this.columns.length > 0) {
     return h(
       'thead',
       {
@@ -137,7 +137,7 @@ function renderTableHead(h) {
           [
             renderCheckbox.call(this, h),
 
-            ...this.headers.map((header, index) => {
+            ...this.columnsSortingBy.map((column, index) => {
               return h(
                 'th',
                 {
@@ -152,18 +152,27 @@ function renderTableHead(h) {
                       }
                     }
                   },
-                  key: `${header.value || header.title}-${index}-${this._uid}`
+                  key: `${column.value || column.title}-${index}-${this._uid}`
                 },
                 [
                   h(
                     'span',
                     {},
-                    header.title
+                    column.title
                   ),
                   renderArrow.call(this, h, index === 0)
                 ]
               )
-            })
+            }),
+
+            h(
+              'th',
+              {
+                style: {
+                  width: '90px'
+                }
+              }
+            )
           ]
         )
       ]

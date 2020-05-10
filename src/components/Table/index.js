@@ -1,10 +1,11 @@
+/* eslint-disable no-console */
 import render from './render';
 
 export default {
   name: 'Table',
 
   props: {
-    headers: {
+    columns: {
       type: Array,
       default: () => []
     },
@@ -22,6 +23,11 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    },
+
+    activeColumn: {
+      type: String,
+      default: ''
     }
   },
 
@@ -35,17 +41,34 @@ export default {
   },
 
   computed: {
+    columnsSortingBy() {
+      if (this.activeColumn) {
+        let activeIndex
+        let sortedColumns = [ ...this.columns ]
+
+        this.columns.forEach((column, index) => {
+          if (column.value === this.activeColumn) {
+            activeIndex = index
+          }
+        })
+
+        sortedColumns.unshift(...sortedColumns.splice(activeIndex, 1))
+
+        return sortedColumns
+      }
+    },
+
     columnTypes() {
-      if (Array.isArray(this.headers) && this.headers.length > 0) {
-        return this.headers.map(header => {
-          return header.value
+      if (Array.isArray(this.columnsSortingBy) && this.columnsSortingBy.length > 0) {
+        return this.columnsSortingBy.map(column => {
+          return column.value
         })
       }
     },
 
     sortedItems() {
       if (this.items) {
-        const activeColumn = this.columnTypes[0]
+        const activeColumn = this.activeColumn || this.columnTypes[0]
 
         return this.items.sort((a, b) => {
           let result = a[activeColumn] > b[activeColumn] ? 1 : -1

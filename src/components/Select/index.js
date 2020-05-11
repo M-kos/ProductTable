@@ -76,7 +76,7 @@ export default {
     toggle(item) {
       if (item.value === 'all') {
         this.selectAll = !this.selectAll
-        this.selectedItems.length = 0
+        this.selectedItems.splice(0)
 
         if (this.selectAll) {
           this.selectedItems.push(...this.computedListItems
@@ -100,7 +100,7 @@ export default {
           this.selectedItems.push(item.value)
         }
       } else {
-        this.selectedItems.length = 0
+        this.selectedItems.splice(0)
         this.selectedItems.push(item.value)
       }
     }

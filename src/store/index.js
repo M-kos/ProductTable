@@ -68,7 +68,7 @@ export default new Vuex.Store({
       } catch (error) {
         commit('setError', error)
       } finally {
-        removeProducts.length = 0
+        removeProducts.splice(0)
         commit('setIsLoading', false)
       }
     }

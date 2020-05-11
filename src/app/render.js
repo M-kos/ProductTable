@@ -72,7 +72,7 @@ export default function(h) {
                 Button,
                 {
                   props: {
-                    active: true,
+                    active: !!this.checkedItems.length,
                     disabled: !this.checkedItems.length,
                     loading: !!this.checkedItems.length && this.isLoading
                   },
@@ -83,7 +83,7 @@ export default function(h) {
                     }
                   }
                 },
-                'Delete'
+                `Delete (${this.checkedItems.length})`
               )
             ]
           ),

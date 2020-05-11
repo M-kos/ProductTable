@@ -92,6 +92,7 @@ export default function(h) {
                 Button,
                 {
                   props: {
+                    active: true,
                     loading: this.loading
                   },
                   on: {

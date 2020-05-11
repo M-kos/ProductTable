@@ -35,7 +35,12 @@ export default {
     return {
       selectAll: false,
       sortByIncrease: true,
+
+      showCofirmModal: false,
+      confirmModalActivator: undefined,
+
       checkedItems: [],
+
       deleteItemId: undefined
     }
   },

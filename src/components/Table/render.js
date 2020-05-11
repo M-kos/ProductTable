@@ -2,6 +2,7 @@
 import { RingLoader, PulseLoader } from '@saeris/vue-spinners'
 
 import Checkbox from '../Checkbox'
+import ConfirmModal from '../ConfirmModal'
 
 function renderCheckbox(h, checked = false, head = true) {
   if (this.selectable) {
@@ -103,18 +104,25 @@ function renderDeleteCell(h, item) {
   return h(
     'td',
     {
-      class: 'table__body-bin',
+      class: {
+        'table__body-bin': true,
+        'table__body-bin--active': (this.loading || this.showCofirmModal) && this.deleteItemId === item.id
+      },
+      attrs: {
+        id: `delete-cell-${item.id}`
+      },
       on: {
         click: event => {
           event.stopPropagation()
+
+          this.showCofirmModal = true
 
           if (this.checkedItems.length > 0 && this.checkedItems.includes(item.id)) {
             this.checkedItems.splice(this.checkedItems.indexOf(item.id), 1)
           }
 
           this.deleteItemId = item.id
-
-          this.$emit('delete', item.id)
+          this.confirmModalActivator = document.getElementById(`delete-cell-${item.id}`)
         }
       }
     },
@@ -254,6 +262,29 @@ export default function(h) {
     {
       class: 'table'
     },
-    [ renderTableHead.call(this, h), renderPreloaderOrEmpty.call(this, h), renderTableBody.call(this, h) ]
+    [
+      renderTableHead.call(this, h),
+      renderPreloaderOrEmpty.call(this, h),
+      renderTableBody.call(this, h),
+
+      h(
+        ConfirmModal,
+        {
+          props: {
+            show: this.showCofirmModal,
+            activator: this.confirmModalActivator
+          },
+          on: {
+            show: event => {
+              this.showCofirmModal = event
+            },
+            confirm: () => {
+              this.$emit('delete', this.deleteItemId)
+              this.showCofirmModal = false
+            }
+          }
+        }
+      )
+    ]
   )
 }

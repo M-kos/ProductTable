@@ -18,7 +18,9 @@ export default {
       checkedItems: [],
       selectedColumns: [],
       startIndex: undefined,
-      endIndex: undefined
+      endIndex: undefined,
+
+      showConfirmModal: false
     }
   },
 

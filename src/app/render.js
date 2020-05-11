@@ -6,6 +6,7 @@ import Table from '../components/Table';
 import Button from '../components/Button';
 import Select from '../components/Select';
 import Pagination from '../components/Pagination';
+import ConfirmModal from '../components/ConfirmModal';
 
 export default function(h) {
   return h(
@@ -51,20 +52,40 @@ export default function(h) {
           }),
 
           h(
-            Button,
+            ConfirmModal,
             {
               props: {
-                active: true,
-                disabled: !this.checkedItems.length,
-                loading: !!this.checkedItems.length && this.isLoading
+                show: this.showConfirmModal
               },
               on: {
-                click: () => {
+                show: event => {
+                  this.showConfirmModal = event
+                },
+                confirm: () => {
                   this.deleteProducts(this.checkedItems)
+                  this.showConfirmModal = false
                 }
               }
             },
-            'Delete'
+            [
+              h(
+                Button,
+                {
+                  props: {
+                    active: true,
+                    disabled: !this.checkedItems.length,
+                    loading: !!this.checkedItems.length && this.isLoading
+                  },
+                  on: {
+                    click: () => {
+                      event.stopPropagation()
+                      this.showConfirmModal = !this.showConfirmModal
+                    }
+                  }
+                },
+                'Delete'
+              )
+            ]
           ),
 
           h(

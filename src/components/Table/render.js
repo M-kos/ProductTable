@@ -26,7 +26,7 @@ function renderCheckbox(h, checked = false, head = true) {
               checked: () => {
                 if (head) {
                   this.selectAll = !this.selectAll
-                  this.checkedItems.length = 0
+                  this.checkedItems.splice(0)
 
                   if (this.selectAll) {
                     this.checkedItems.push(...this.sortedItems.map(item => item.id))
@@ -144,7 +144,7 @@ function renderTableHead(h) {
             class: 'table__head-row'
           },
           [
-            renderCheckbox.call(this, h),
+            renderCheckbox.call(this, h, this.selectAll),
 
             ...this.columnsSortingBy.map((column, index) => {
               return h(
@@ -219,10 +219,18 @@ function renderTableBody(h) {
                   return
                 }
 
+                if (this.selectAll) {
+                  this.selectAll = false
+                }
+
                 if (includeId) {
                   this.checkedItems.splice(this.checkedItems.indexOf(item.id), 1)
                 } else {
                   this.checkedItems.push(item.id)
+                }
+
+                if (this.checkedItems.length === this.sortedItems.length) {
+                  this.selectAll = true
                 }
 
                 this.$emit('checked', this.checkedItems)

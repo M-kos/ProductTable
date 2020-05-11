@@ -6,9 +6,15 @@ export default {
   functional: true,
 
   props: {
-    outline: Boolean,
     loading: Boolean,
-    disabled: Boolean,
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    outline: {
+      type: Boolean,
+      default: false
+    },
     active: {
       type: Boolean,
       default: true

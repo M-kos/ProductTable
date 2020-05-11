@@ -1,7 +1,6 @@
 .table {
   border-collapse: collapse;
   border-radius: 4px;
-  overflow: hidden;
   background-color: $white;
   width: auto;
 
@@ -70,7 +69,7 @@
           font-weight: 600;
         }
 
-        & > .table__body-bin {
+        & .table__body-bin {
           opacity: 1;
         }
       }
@@ -94,6 +93,10 @@
       height: inherit;
       width: auto;
       padding-right: 32px;
+
+      &--active {
+        opacity: 1;
+      }
     }
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -45,10 +46,8 @@ export default new Vuex.Store({
       }
     },
     async deleteProducts({ commit, state }, products) {
-
+      let removeProducts = products
       try {
-        let removeProducts = products
-
         commit('setIsLoading', true)
 
         if (typeof removeProducts === 'number') {
@@ -69,6 +68,7 @@ export default new Vuex.Store({
       } catch (error) {
         commit('setError', error)
       } finally {
+        removeProducts.length = 0
         commit('setIsLoading', false)
       }
     }

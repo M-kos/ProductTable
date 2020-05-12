@@ -26,11 +26,15 @@ export default function(h) {
 
       h(
         'div',
-        {},
+        {
+          class: 'app-filters'
+        },
         [
           h(
             'span',
-            {},
+            {
+              class: 'app-sorting'
+            },
             'Sorting by:'
           ),
           ...this.columns.map(column => {

@@ -4,11 +4,11 @@ export const AMOUNT_ELEMENTS = [
     title: '10 Per Page'
   },
   {
-    value: 25,
-    title: '25 Per Page'
+    value: 15,
+    title: '15 Per Page'
   },
   {
-    value: 50,
-    title: '50 Per Page'
+    value: 20,
+    title: '20 Per Page'
   }
 ]

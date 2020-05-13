@@ -55,9 +55,14 @@ export default function(h) {
             )
           }),
 
+          h('div', { class: 'fill' }),
+
           h(
             ConfirmModal,
             {
+              style: {
+                'margin-right': '12px'
+              },
               props: {
                 show: this.showConfirmModal
               },

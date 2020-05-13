@@ -26,6 +26,7 @@
 
   &__select-list {
     position: absolute;
+    z-index: 9;
     min-width: 215px;
     max-height: 243px;
     background-color: $white;

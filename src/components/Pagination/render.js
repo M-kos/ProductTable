@@ -10,6 +10,11 @@ export default function(h) {
       h(
         Button,
         {
+          style: {
+            'max-width': '32px',
+            'min-width': '32px',
+            padding: '0'
+          },
           props: {
             outline: true,
             disabled: this.disabledLeft,
@@ -27,23 +32,14 @@ export default function(h) {
         },
         [
           h(
-            'span',
+            'div',
             {
               class: {
                 'pagination-arrow': true,
+                'pagination-arrow--left': true,
                 'pagination-arrow--disabled': this.disabledLeft
               }
-            },
-            [
-              h(
-                'img',
-                {
-                  attrs: {
-                    src: './arrow-left.svg'
-                  }
-                }
-              )
-            ]
+            }
           )
         ]
       ),
@@ -53,12 +49,39 @@ export default function(h) {
         {
           class: 'pagination-content'
         },
-        `${this.start}-${this.end} of ${this.allItems}`
+        [
+          h(
+            'span',
+            {
+              class: 'pagination-content-interval'
+            },
+            `${this.start}-${this.end}`
+          ),
+          h(
+            'span',
+            {
+              class: 'pagination-content-dash'
+            },
+            'of'
+          ),
+          h(
+            'span',
+            {
+              class: 'pagination-content-total'
+            },
+            this.allItems
+          )
+        ]
       ),
 
       h(
         Button,
         {
+          style: {
+            'max-width': '32px',
+            'min-width': '32px',
+            padding: '0'
+          },
           props: {
             outline: true,
             disabled: this.disabledRight,
@@ -76,23 +99,14 @@ export default function(h) {
         },
         [
           h(
-            'span',
+            'div',
             {
               class: {
                 'pagination-arrow': true,
+                'pagination-arrow--right': true,
                 'pagination-arrow--disabled': this.disabledRight
               }
-            },
-            [
-              h(
-                'img',
-                {
-                  attrs: {
-                    src: './arrow-right.svg'
-                  }
-                }
-              )
-            ]
+            }
           )
         ]
       )

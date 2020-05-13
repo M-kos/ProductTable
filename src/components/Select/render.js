@@ -5,12 +5,7 @@ function renderArrow(h) {
   return h(
     'span',
     {
-      class: 'select-arrow',
-      on: {
-        click: () => {
-          this.opened = !this.opened
-        }
-      }
+      class: 'select-arrow'
     },
     [
       h(
@@ -77,6 +72,9 @@ function renderListItem(h, item) {
         click: () => {
           this.toggle(item)
           this.$emit('input', this.selectedItems)
+          if (!this.multiple) {
+            this.opened = false
+          }
         }
       }
     },
@@ -85,7 +83,10 @@ function renderListItem(h, item) {
       h(
         'span',
         {
-          class: 'select__select-list-item__item-title'
+          class: {
+            'select__select-list-item__item-title': true,
+            'select__select-list-item__item-title--all': item.value === 'all'
+          }
         },
         item.title
       )
@@ -98,7 +99,12 @@ function renderList(h) {
     return h(
       'div',
       {
-        class: 'select__select-list'
+        class: 'select__select-list',
+        on: {
+          click: event => {
+            event.stopPropagation()
+          }
+        }
       },
       this.computedListItems.map(item => renderListItem.call(this, h, item))
     )
@@ -115,11 +121,27 @@ export default function(h) {
       h(
         'div',
         {
-          class: 'select__selected-items'
+          class: 'select__head',
+          attrs: {
+            id: `select-${this._uid}`
+          },
+          on: {
+            click: () => {
+              this.opened = !this.opened
+            }
+          }
         },
-        renderSelectedItems.call(this, h)
+        [
+          h(
+            'div',
+            {
+              class: 'select__selected-items'
+            },
+            renderSelectedItems.call(this, h)
+          ),
+          renderArrow.call(this, h)
+        ]
       ),
-      renderArrow.call(this, h),
       renderList.call(this, h)
     ]
   )

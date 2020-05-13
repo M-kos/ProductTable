@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import render from './render'
 
 export default {
@@ -26,7 +27,9 @@ export default {
       opened: false,
       selectAll: true,
 
-      selectedItems: []
+      selectedItems: [],
+
+      app: undefined
     }
   },
 
@@ -70,6 +73,18 @@ export default {
 
       this.selectedItems = [ ...value ]
     }
+
+    this.app = document.getElementById('app')
+
+    if (this.app) {
+      this.app.addEventListener('click', this.clickHandler)
+    }
+  },
+
+  beforeDestroy() {
+    if (this.app) {
+      this.app.removeEventListener('click', this.clickHandler)
+    }
   },
 
   methods: {
@@ -103,6 +118,18 @@ export default {
         this.selectedItems.splice(0)
         this.selectedItems.push(item.value)
       }
+    },
+
+    clickHandler(event) {
+      let target = event.target
+
+      while (target) {
+        if (target.id === `select-${this._uid}`) {
+          return
+        }
+        target = target.parentElement
+      }
+      this.opened = false
     }
   },
 

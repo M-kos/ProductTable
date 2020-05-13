@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { RingLoader, PulseLoader } from '@saeris/vue-spinners'
 
 import Checkbox from '../Checkbox'

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { PulseLoader } from '@saeris/vue-spinners'
 
 import Button from '../Button';

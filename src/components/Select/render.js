@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import Checkbox from '../Checkbox'
 
 function renderArrow(h) {

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { mapActions, mapGetters } from 'vuex'
 
 import { COLUMN_TITLES, AMOUNT_ELEMENTS } from '../utils'

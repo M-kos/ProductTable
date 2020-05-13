@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import render from './render'
 
 export default {

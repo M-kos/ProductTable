@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { COLUMN_TITLES, AMOUNT_ELEMENTS } from '../utils'
 
 import Title from '../components/Title';

@@ -28,7 +28,9 @@ export default {
     activeColumn: {
       type: String,
       default: ''
-    }
+    },
+
+    error: String
   },
 
   data() {

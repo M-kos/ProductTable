@@ -158,7 +158,8 @@ export default function(h) {
             items: this.computedProducts,
             selectable: true,
             loading: this.isLoading,
-            activeColumn: this.activeColumn
+            activeColumn: this.activeColumn,
+            error: this.error ? this.error.error : undefined
           },
           on: {
             delete: event => {

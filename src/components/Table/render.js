@@ -194,7 +194,7 @@ function renderPreloaderOrEmpty(h) {
     if (this.loading) {
       return h(RingLoader, { props: { color: '#00A11E' } })
     } else {
-      return h('div', {}, 'Empty')
+      return h('div', { class: 'table--error' }, `${this.error}. Try again`)
     }
   }
 }
@@ -266,32 +266,46 @@ function renderTableBody(h) {
 
 export default function(h) {
   return h(
-    'table',
+    'div',
     {
-      class: 'table'
+      class: 'table-wrapper'
     },
     [
-      renderTableHead.call(this, h),
-      renderPreloaderOrEmpty.call(this, h),
-      renderTableBody.call(this, h),
-
       h(
-        ConfirmModal,
+        'table',
         {
-          props: {
-            show: this.showCofirmModal,
-            activator: this.confirmModalActivator
-          },
-          on: {
-            show: event => {
-              this.showCofirmModal = event
-            },
-            confirm: () => {
-              this.$emit('delete', this.deleteItemId)
-              this.showCofirmModal = false
+          class: 'table'
+        },
+        [
+          renderTableHead.call(this, h),
+          renderTableBody.call(this, h),
+
+          h(
+            ConfirmModal,
+            {
+              props: {
+                show: this.showCofirmModal,
+                activator: this.confirmModalActivator
+              },
+              on: {
+                show: event => {
+                  this.showCofirmModal = event
+                },
+                confirm: () => {
+                  this.$emit('delete', this.deleteItemId)
+                  this.showCofirmModal = false
+                }
+              }
             }
-          }
-        }
+          )
+        ]
+      ),
+      h(
+        'div',
+        {
+          class: 'table__empty'
+        },
+        [ renderPreloaderOrEmpty.call(this, h) ]
       )
     ]
   )

@@ -1,0 +1,50 @@
+.pagination {
+  display: flex;
+  padding-left: 16px;
+  padding-right: 16px;
+  min-width: 150px;
+  
+  &-content {
+    color: $font-light;
+    min-width: 74px;
+    padding-right: 8px;
+    padding-left: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    
+    &-interval {
+      font-weight: 600;
+    }
+    
+    &-total {
+      font-weight: 600;
+    }
+    
+    &-dash {
+      padding-left: 2px;
+      padding-right: 2px;
+    }
+  }
+  
+  &-arrow {
+    min-width: 32px;
+    min-height: 32px;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    background-color: $font-buttons;
+    margin-left: -1px;
+
+    &--left {
+      mask-image: url('../../public/arrow_left.svg');
+    }
+    &--right {
+      mask-image: url('../../public/arrow_right.svg');
+    }
+
+    &--disabled {
+      background-color: $font-disabled;
+    }
+  }
+}

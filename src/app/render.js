@@ -108,6 +108,22 @@ export default function(h) {
           ),
 
           h(
+            Pagination,
+            {
+              props: {
+                perPage: this.amountElement,
+                allItems: this.products ? this.products.length : 0
+              },
+              on: {
+                toggle: event => {
+                  this.startIndex = event.start - 1
+                  this.endIndex = event.end
+                }
+              }
+            }
+          ),
+
+          h(
             Select,
             {
               props: {
@@ -122,22 +138,6 @@ export default function(h) {
               on: {
                 input: event => {
                   this.selectedColumns = event
-                }
-              }
-            }
-          ),
-
-          h(
-            Pagination,
-            {
-              props: {
-                perPage: this.amountElement,
-                allItems: this.products ? this.products.length : 0
-              },
-              on: {
-                toggle: event => {
-                  this.startIndex = event.start - 1
-                  this.endIndex = event.end
                 }
               }
             }

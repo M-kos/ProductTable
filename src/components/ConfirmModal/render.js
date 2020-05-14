@@ -1,6 +1,6 @@
 import { PulseLoader } from '@saeris/vue-spinners'
 
-import Button from '../Button';
+import Button from '../Button'
 
 function renderContent(h) {
   return [

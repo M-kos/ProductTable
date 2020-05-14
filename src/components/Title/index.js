@@ -1,4 +1,4 @@
-import render from './render';
+import render from './render'
 
 export default {
   name: 'Title',
@@ -13,4 +13,4 @@ export default {
   },
 
   render
-};
+}

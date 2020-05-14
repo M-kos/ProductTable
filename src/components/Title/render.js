@@ -6,5 +6,5 @@ export default function(h, ctx) {
       style: ctx.data.style
     },
     ctx.props.value
-  );
+  )
 }

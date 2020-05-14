@@ -2,7 +2,7 @@ import { mapActions, mapGetters } from 'vuex'
 
 import { COLUMN_TITLES, AMOUNT_ELEMENTS } from '../utils'
 
-import render from './render';
+import render from './render'
 
 const defaultActiveColumn = 'product'
 
@@ -57,4 +57,4 @@ export default {
   },
 
   render
-};
+}

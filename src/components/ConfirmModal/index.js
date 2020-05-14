@@ -1,4 +1,4 @@
-import render from './render';
+import render from './render'
 
 export default {
   name: 'ConfirmModal',
@@ -68,4 +68,4 @@ export default {
   },
 
   render
-};
+}

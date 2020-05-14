@@ -1,9 +1,9 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import Vuex from 'vuex'
 
 import { getProducts, deleteProducts } from '../service/api/request'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
@@ -79,4 +79,4 @@ export default new Vuex.Store({
     isLoading: state => state.isLoading,
     deleteMessage: state => state.deleteMessage
   }
-});
+})

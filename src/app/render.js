@@ -1,11 +1,11 @@
 import { COLUMN_TITLES, AMOUNT_ELEMENTS } from '../utils'
 
-import Title from '../components/Title';
-import Table from '../components/Table';
-import Button from '../components/Button';
-import Select from '../components/Select';
-import Pagination from '../components/Pagination';
-import ConfirmModal from '../components/ConfirmModal';
+import Title from '../components/Title'
+import Table from '../components/Table'
+import Button from '../components/Button'
+import Select from '../components/Select'
+import Pagination from '../components/Pagination'
+import ConfirmModal from '../components/ConfirmModal'
 
 export default function(h) {
   return h(
@@ -171,5 +171,5 @@ export default function(h) {
         }
       )
     ]
-  );
+  )
 }

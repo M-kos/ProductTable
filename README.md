@@ -1,5 +1,7 @@
 # producttable
 
+Demo: https://m-kos.github.io/ProductTable/
+
 ## Project setup
 ```
 npm install

@@ -1,4 +1,4 @@
-import render from './render';
+import render from './render'
 
 export default {
   name: 'Pagination',
@@ -54,7 +54,7 @@ export default {
               this.start = 1
             }
           }
-          break;
+          break
         case 'right':
           if (!this.disabledRight) {
             this.start =  this.start + this.perPage
@@ -64,10 +64,10 @@ export default {
               this.end = this.allItems
             }
           }
-          break;
+          break
       }
     }
   },
 
   render
-};
+}

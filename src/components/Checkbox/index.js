@@ -1,4 +1,4 @@
-import render from './render';
+import render from './render'
 
 export default {
   name: 'Checkbox',
@@ -33,4 +33,4 @@ export default {
   },
 
   render
-};
+}
